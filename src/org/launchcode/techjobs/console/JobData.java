@@ -54,7 +54,10 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
+        //Is this the right way to make a copy?
+        ArrayList<HashMap<String, String>> jobs = new ArrayList(allJobs);
+
+        return jobs;
     }
 
     /**
