@@ -7,12 +7,15 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
+ * Edited by Brian McGirk
  */
 public class JobData {
 
@@ -76,7 +79,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -125,4 +128,23 @@ public class JobData {
         }
     }
 
-}
+    public static ArrayList<HashMap<String, String>> findByValue(String value){
+
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+            for (Map.Entry<String, String> data : job.entrySet()) {
+                //Is it better/cleaner to create two lowercase variables here and compare those?
+                if(data.getValue().toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(job);
+                    break;
+                }
+
+            }
+        }
+        return jobs;
+        }
+
+    }
